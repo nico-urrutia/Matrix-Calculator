@@ -1,2 +1,46 @@
 # Matrix-Calculator
+
+Description:
 Matrix Calculator is a Python program that performs various operations on matrixes, including calculating the determinant, rank, inverse, and more. The program provides a graphical user interface built with Tkinter for easy interaction.
+
+About the developer:
+    🧑‍💻Developed by Nicolás Urrutia. I'm a student at the University of Deusto, passionate about mathematics and programming. This project is part of my exploration into linear algebra and algorithm implementation.
+    📩Email: nicolas.urrutia@opendeusto.es , nicourru@icloud.com
+
+Features
+    -Calculate the determinant of any square matrix
+    -Compute the rank of a matrix using Gaussian elimination
+    -Compute the inverse of invertible matrices
+    -Matrix transpose
+    -GUI for entering matrices and displaying results
+ 
+Installation & Requirements
+    -Install Python 3.9 or higher.🐍
+    -No external packages are required; the program uses standard Python libraries (tkinter and fractions).
+    -Clone or download the repository.🐱
+
+How to Run
+From the terminal or command prompt:
+python main.py #This launches the GUI.
+
+Example Input
+1 2 3
+4 5 6
+7 8 9
+Click the buttons to calculate Determinant, Rank, or Inverse.
+
+Project Structure
+matrix_calculator/
+│
+├── main.py         # Launches the GUI
+├── gui.py          # Tkinter interface for user input and output
+└── matrix_f.py     # All matrix operations (determinant, inverse, rank, transpose, etc.)
+
+Known Limitations
+    Determinant calculation uses recursion for the general case, which can be slow for large matrices (n > 8).
+    GUI input is limited to rectangular numeric matrices; invalid inputs may cause errors.
+
+Future Improvements
+    Code a funcition to solve systems using Gauss-Jordan elimination.
+    Code a function to give the inverse using Gauss-Jordan elimination.
+    Introduce an information, contact or "About me" button in the GUI.

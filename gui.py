@@ -30,6 +30,8 @@ def start_app():
                 result = M.inverse_cofactors().data
             elif op == "rank":
                 result = M.rank_gauss()
+            elif op == "inverse_gauss_jordan":
+                result = M.inverse_gauss_jordan()
             else:
                 result = ""
             output_box.config(state="normal")
@@ -59,11 +61,14 @@ def start_app():
     buttons_frame = tk.Frame(window)
     buttons_frame.pack(pady=10)
 
-    tk.Button(buttons_frame, text="Transpose", command=lambda: perform_operation("transpose")).grid(row=0, column=0, padx=5, pady=2)
-    tk.Button(buttons_frame, text="Determinant (recursive)", command=lambda: perform_operation("det_rec")).grid(row=0, column=1, padx=5, pady=2)
-    tk.Button(buttons_frame, text="Determinant (triangular)", command=lambda: perform_operation("det_tri")).grid(row=1, column=0, padx=5, pady=2)
-    tk.Button(buttons_frame, text="Inverse (Using cofactors)", command=lambda: perform_operation("inverse_cofactors")).grid(row=1, column=1, padx=5, pady=2)
-    tk.Button(buttons_frame, text="Rank", command=lambda: perform_operation("rank")).grid(row=2, column=0, padx=5, pady=2)
+    button_height = 1 
+    button_width = 25
+    tk.Button(buttons_frame, width=button_width, height=button_height, text="Transpose", command=lambda: perform_operation("transpose")).grid(row=0, column=0, padx=5, pady=2)
+    tk.Button(buttons_frame, width=button_width, height=button_height, text="Determinant (recursive)", command=lambda: perform_operation("det_rec")).grid(row=0, column=1, padx=5, pady=2)
+    tk.Button(buttons_frame, width=button_width, height=button_height, text="Determinant (triangular)", command=lambda: perform_operation("det_tri")).grid(row=1, column=0, padx=5, pady=2)
+    tk.Button(buttons_frame, width=button_width, height=button_height, text="Inverse (Using cofactors)", command=lambda: perform_operation("inverse_cofactors")).grid(row=1, column=1, padx=5, pady=2)
+    tk.Button(buttons_frame, width=button_width, height=button_height, text="Rank", command=lambda: perform_operation("rank")).grid(row=2, column=0, padx=5, pady=2)
+    tk.Button(buttons_frame, width=button_width, height=button_height, text="Inverse (By Gauss-Jordan)", command=lambda: perform_operation("inverse_gauss_jordan")).grid(row=2, column=1, padx=5, pady=2)
 
     tk.Label(window, text="Result:").pack(pady=5)
 

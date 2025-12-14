@@ -1,22 +1,21 @@
 from fractions import Fraction
-import tkinter as tk
 def transpose_m(matrix: list[list])->list[list]:
     trasp: list[list] = []
     for i in range(len(matrix[0])):
-        row_trasp: list = []
+        row_transp: list = []
         for row in matrix:
-            row_trasp.append(row[i])
-        trasp.append(row_trasp)
+            row_transp.append(row[i])
+        trasp.append(row_transp)
     return trasp
 
-def mult_diagonal(matrix):#Devuelve el determinante de una matrix triangular.
+def mult_diagonal(matrix):
     mult: int = 1
     for i in range(len(matrix)):
         mult*=float(Fraction(matrix[i][i]))
     return mult
 
 def pivot(matrix, index):
-    for j in range(index, len(matrix)): # Si el pivote es 0, cambiamos las rows de orden
+    for j in range(index, len(matrix)): # If the pivot element is 0, we look for another row to swap with.
         if matrix[j][j]!=0:
             matrix[index], matrix[j] = matrix[j], matrix[index]
             break
@@ -27,7 +26,7 @@ def clean_matrix(matrix):
     for row in matrix:
         new_row = []
         for element in row:
-            new_row.append(str(Fraction(element))) #Utilizo el modulo Fraction para que la matrix triangular sea mas facil de visualizar.
+            new_row.append(str(Fraction(element))) #Fraction module used to make the matrix more readable
         nueva_matrix.append(new_row)
     return nueva_matrix
 
@@ -43,10 +42,10 @@ def turn_triangular(matrix):
             matrix = pivot(matrix, i)
             sign*=-1
             pivote = matrix[i][i]
-            if pivote == 0: #Si no se puede pivot a un valor !=0, el determinante es 0.
+            if pivote == 0: #If the pivot can't be changed, return 0.
                 return [[0]]
         for j in range(i+1, len(matrix)):
-            substract_rows(matrix[j], matrix[i], Fraction(matrix[j][i], pivote))#Con Fraction evito perder informacion en digitos decimales.
+            substract_rows(matrix[j], matrix[i], Fraction(matrix[j][i], pivote))#With Fraction i avoid losing accuracy with decimal digits.
     matrix[0][0]*=sign
     return matrix
 
@@ -103,7 +102,7 @@ def inverse_cofactors(matrix):
 def inverse_gauss_jordan(matrix): 
     pass  # Placeholder for future implementation
 
-def system_gauss_jordan(matrix, results):
+def system_gauss_jordan(matrix, results):#Note that it takes TWO arguments: the matrix and the results vector. This might cause problems with user input and parsing(have to fix that later).
     pass  # Placeholder for future implementation
 
 class Matrix:
@@ -125,3 +124,7 @@ class Matrix:
 
     def rango(self):
         return gauss_mat_range(self.data)
+    
+    def inverse_gauss_jordan(self):
+        inv = inverse_gauss_jordan(self.data)
+        return Matrix(clean_matrix(inv))

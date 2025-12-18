@@ -14,7 +14,7 @@ def mult_diagonal(matrix):
         mult*=float(Fraction(matrix[i][i]))
     return mult
 
-def pivot(matrix, index):
+def partial_pivot(matrix, index):
     for j in range(index, len(matrix)): # If the pivot element is 0, we look for another row to swap with.
         if matrix[j][j]!=0:
             matrix[index], matrix[j] = matrix[j], matrix[index]
@@ -34,18 +34,18 @@ def substract_rows(row1, row2, mult):
     for i in range(len(row1)):
         row1[i]=row1[i]-(row2[i]*mult)
 
-def turn_triangular(matrix):
+def turn_triangular(matrix): 
     sign: int = 1
     for i in range(len(matrix)-1):
-        pivote = matrix[i][i]
-        if pivote == 0:
-            matrix = pivot(matrix, i)
+        pivot = matrix[i][i]
+        if pivot == 0:
+            matrix = partial_pivot(matrix, i)
             sign*=-1
-            pivote = matrix[i][i]
-            if pivote == 0: #If the pivot can't be changed, return 0.
+            pivot = matrix[i][i]
+            if pivot == 0: #If the pivot can't be changed, return 0.
                 return [[0]]
         for j in range(i+1, len(matrix)):
-            substract_rows(matrix[j], matrix[i], Fraction(matrix[j][i], pivote))#With Fraction i avoid losing accuracy with decimal digits.
+            substract_rows(matrix[j], matrix[i], Fraction(matrix[j][i], pivot))#With Fraction i avoid losing accuracy with decimal digits.
     matrix[0][0]*=sign
     return matrix
 
@@ -89,8 +89,8 @@ def gauss_mat_range(matrix):
             mat_range+=1
     return mat_range
 
-def inverse_cofactors(matrix):
-    determinante = determinante_matrix(matrix)
+def inverse_cofactors(matrix):#Doesn't work properly yet
+    determinante = int(mult_diagonal(turn_triangular(matrix)))
     if determinante == 0:
         raise ValueError("The matrix is not invertible (determinant = 0).")
     adj = adjunta(matrix)
@@ -98,7 +98,7 @@ def inverse_cofactors(matrix):
         for j in range(len(matrix)):
             adj[i][j] = Fraction(adj[i][j], determinante)
     return clean_matrix(adj)
-
+ 
 def identity_matrix(matrix):
     identity:  list = []
     for i in range(len(matrix)):
@@ -122,12 +122,33 @@ def augment_matrix(matrix):
         augmented.append(row)
     return augmented
 
+def get_inverse_from_aug(matrix):
+    inverse = []
+    for i in range(len(matrix)):
+        fila = []
+        for j in range(len(matrix), len(matrix[0])):
+            fila.append(matrix[i][j])
+        inverse.append(fila)
+    return inverse
+
 def inverse_gauss_jordan(matrix):
     if determinante_matrix(matrix) == 0:
         raise ValueError("The matrix is not invertible (determinant = 0).")
     if len(matrix)!=len(matrix[0]):
         raise ValueError("The matrix is not invertible (not square).")
     augmented_matrix = augment_matrix(matrix)
+    for i in range(len(matrix)):
+        pivot = augmented_matrix[i][i]
+        if pivot == 0:
+            partial_pivot(augmented_matrix, i)
+        for j in range(i, len(augmented_matrix[i])):
+            augmented_matrix[i][j] = Fraction(augmented_matrix[i][j],pivot)
+        for k in range(len(augmented_matrix)):
+            if k == i:
+                continue
+            substract_rows(augmented_matrix[k], augmented_matrix[i], augmented_matrix[k][i])
+    inverse = get_inverse_from_aug(augmented_matrix)
+    return clean_matrix(inverse)
 
 def system_gauss_jordan(matrix, results):#Note that it takes TWO arguments: the matrix and the results vector. This might cause problems with user input and parsing(have to fix that later).
     pass  # Placeholder for future implementation
@@ -156,6 +177,12 @@ class Matrix:
         inv = inverse_gauss_jordan(self.data)
         return Matrix(clean_matrix(inv))
 
-A = [[1, 2], [3, 4]]
-for fila in augment_matrix(A):
+C2 = [
+    [3, 2, 8, 4],
+    [5, 6, 5, 8],
+    [9, 10, 1, 2],
+    [1, 4, 3, 6]
+    ]
+
+for fila in inverse_cofactors(C2):
     print(fila)

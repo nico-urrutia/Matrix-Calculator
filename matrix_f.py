@@ -122,7 +122,7 @@ class Matrix:
     def inverse_cofactors(self):
         return Matrix(inverse_cofactors(self.data))
 
-    def rango(self):
+    def rank_gauss(self):
         return gauss_mat_range(self.data)
     
     def inverse_gauss_jordan(self):

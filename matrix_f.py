@@ -99,8 +99,35 @@ def inverse_cofactors(matrix):
             adj[i][j] = Fraction(adj[i][j], determinante)
     return clean_matrix(adj)
 
-def inverse_gauss_jordan(matrix): 
-    pass  # Placeholder for future implementation
+def identity_matrix(matrix):
+    identity:  list = []
+    for i in range(len(matrix)):
+        row = []
+        for j in range(len(matrix)):
+            row.append(0)
+        identity.append(row)
+    for k in range(len(matrix)):
+        identity[k][k]+=1
+    return identity
+
+def augment_matrix(matrix):
+    identity = identity_matrix(matrix)
+    augmented = []
+    for i in range(len(matrix)):
+        row = []
+        for number in matrix[i]:
+            row.append(number)
+        for number in identity[i]:
+            row.append(number)
+        augmented.append(row)
+    return augmented
+
+def inverse_gauss_jordan(matrix):
+    if determinante_matrix(matrix) == 0:
+        raise ValueError("The matrix is not invertible (determinant = 0).")
+    if len(matrix)!=len(matrix[0]):
+        raise ValueError("The matrix is not invertible (not square).")
+    augmented_matrix = augment_matrix(matrix)
 
 def system_gauss_jordan(matrix, results):#Note that it takes TWO arguments: the matrix and the results vector. This might cause problems with user input and parsing(have to fix that later).
     pass  # Placeholder for future implementation
@@ -128,3 +155,7 @@ class Matrix:
     def inverse_gauss_jordan(self):
         inv = inverse_gauss_jordan(self.data)
         return Matrix(clean_matrix(inv))
+
+A = [[1, 2], [3, 4]]
+for fila in augment_matrix(A):
+    print(fila)

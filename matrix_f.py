@@ -11,7 +11,7 @@ def transpose_m(matrix: list[list])->list[list]:
 def mult_diagonal(matrix):
     mult: int = 1
     for i in range(len(matrix)):
-        mult*=float(Fraction(matrix[i][i]))
+        mult*=Fraction(matrix[i][i])
     return mult
 
 def partial_pivot(matrix, index):
@@ -83,7 +83,7 @@ def gauss_mat_range(matrix):
     for row in matrix_triangular:
         null: bool = True
         for element in row:
-            if float(element)!=0:
+            if Fraction(element)!=0:
                 null = False
         if not null:
             mat_range+=1
@@ -171,5 +171,4 @@ C2 = [
     [1, 4, 3, 6]
     ]
 
-for fila in inverse_cofactors(C2):
-    print(fila)
+print(mult_diagonal(turn_triangular(C2)))

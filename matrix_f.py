@@ -88,16 +88,6 @@ def gauss_mat_range(matrix):
         if not null:
             mat_range+=1
     return mat_range
-
-def inverse_cofactors(matrix):#Doesn't work properly yet
-    determinante = int(mult_diagonal(turn_triangular(matrix)))
-    if determinante == 0:
-        raise ValueError("The matrix is not invertible (determinant = 0).")
-    adj = adjunta(matrix)
-    for i in range(len(matrix)):
-        for j in range(len(matrix)):
-            adj[i][j] = Fraction(adj[i][j], determinante)
-    return clean_matrix(adj)
  
 def identity_matrix(matrix):
     identity:  list = []
@@ -166,9 +156,6 @@ class Matrix:
     def determinante_tri(self):
         triangular = turn_triangular(self.data)
         return mult_diagonal(triangular)
-
-    def inverse_cofactors(self):
-        return Matrix(inverse_cofactors(self.data))
 
     def rank_gauss(self):
         return gauss_mat_range(self.data)

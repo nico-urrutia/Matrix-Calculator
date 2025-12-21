@@ -26,8 +26,6 @@ def start_app():
                 result = M.determinante_rec()
             elif op == "det_tri":
                 result = M.determinante_tri()
-            elif op == "inverse_cofactors":
-                result = M.inverse_cofactors().data
             elif op == "rank":
                 result = M.rank_gauss()
             elif op == "inverse_gauss_jordan":
@@ -66,7 +64,6 @@ def start_app():
     tk.Button(buttons_frame, width=button_width, height=button_height, text="Transpose", command=lambda: perform_operation("transpose")).grid(row=0, column=0, padx=5, pady=2)
     tk.Button(buttons_frame, width=button_width, height=button_height, text="Determinant (recursive)", command=lambda: perform_operation("det_rec")).grid(row=0, column=1, padx=5, pady=2)
     tk.Button(buttons_frame, width=button_width, height=button_height, text="Determinant (triangular)", command=lambda: perform_operation("det_tri")).grid(row=1, column=0, padx=5, pady=2)
-    tk.Button(buttons_frame, width=button_width, height=button_height, text="Inverse (Using cofactors)", command=lambda: perform_operation("inverse_cofactors")).grid(row=1, column=1, padx=5, pady=2)
     tk.Button(buttons_frame, width=button_width, height=button_height, text="Rank", command=lambda: perform_operation("rank")).grid(row=2, column=0, padx=5, pady=2)
     tk.Button(buttons_frame, width=button_width, height=button_height, text="Inverse (By Gauss-Jordan)", command=lambda: perform_operation("inverse_gauss_jordan")).grid(row=2, column=1, padx=5, pady=2)
 

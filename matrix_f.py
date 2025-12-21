@@ -170,5 +170,3 @@ C2 = [
     [9, 10, 1, 2],
     [1, 4, 3, 6]
     ]
-
-print(mult_diagonal(turn_triangular(C2)))

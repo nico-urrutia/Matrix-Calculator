@@ -48,11 +48,51 @@ def start_app():
     window = tk.Tk()
     window.title("Matrix Calculator")
     window.iconbitmap("matrix_icon_215545.ico") 
-    window.geometry("600x600")     
+    window.geometry("600x600")
+     
+    def show_developer_info():
+        info_window = tk.Toplevel(window)
+        info_window.title("About the Developer")
+        info_window.geometry("950x220")
+        info_window.iconbitmap("matrix_icon_215545.ico") 
+        info_window.transient(window)
+        info_window.grab_set()
 
-    label = tk.Label(window, text="Enter matrix (rows separated by newlines, elements by spaces):")
+        title_label = tk.Label(
+            info_window,
+            text="About the developer",
+            font=("Arial", 14, "bold")
+        )
+        title_label.pack(pady=10)
+
+        developer_label = tk.Label(
+            info_window,
+            text=(
+                "🧑‍💻Developed by Nicolás Urrutia Lerena.\n"
+                "💻I'm a computer science, data science and AI student at the University of Deusto. I'm passionate about mathematics and programming.\n This project is part of my exploration into linear algebra and algorithm implementation.\n"
+                "I have been coding since I was 13 years old and I love creating useful applications that solve real-world problems.\n"
+                " \n"
+                "CONTACT:\n"
+                "📩Email: nicolas.urrutia@opendeusto.es , nicourru@icloud.com\n"
+                "🌐GitHub: https://github.com/nico-urrutia\n"
+                "⛓️Linkedin: https://www.linkedin.com/in/nicolas-urrutia-lerena-833465383/\n"
+            ),
+            justify=tk.LEFT,)
+        developer_label.pack(pady=10)
+
+        close_button = tk.Button(
+            info_window,
+            text="Close",
+            width=10,
+            command=info_window.destroy
+        )
+        close_button.pack(pady=10)
+
+
+    tk.Button(window, text="ℹ️Developer Info", command=show_developer_info).pack()
+
+    label = tk.Label(window, text="Enter matrix (rows separated by newlines, elements by spaces):", font=("Arial", 9, "bold"))
     label.pack(pady=5)
-
     input_box = tk.Text(window, width=50, height=10)
     input_box.pack()
 
@@ -66,6 +106,7 @@ def start_app():
     tk.Button(buttons_frame, width=button_width, height=button_height, text="Determinant (triangular)", command=lambda: perform_operation("det_tri")).grid(row=1, column=0, padx=5, pady=2)
     tk.Button(buttons_frame, width=button_width, height=button_height, text="Rank", command=lambda: perform_operation("rank")).grid(row=2, column=0, padx=5, pady=2)
     tk.Button(buttons_frame, width=button_width, height=button_height, text="Inverse (By Gauss-Jordan)", command=lambda: perform_operation("inverse_gauss_jordan")).grid(row=2, column=1, padx=5, pady=2)
+
 
     tk.Label(window, text="Result:").pack(pady=5)
 

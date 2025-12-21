@@ -5,7 +5,9 @@ Matrix Calculator is a Python program that performs various operations on matrix
 
 About the developer:
     🧑‍💻Developed by Nicolás Urrutia. I'm a student at the University of Deusto, passionate about mathematics and programming. This project is part of my exploration into linear algebra and algorithm implementation.
-    📩Email: nicolas.urrutia@opendeusto.es , nicourru@icloud.com
+    📩Email: nicolas.urrutia@opendeusto.es , nicourru@icloud.
+    🌐GitHub: https://github.com/nico-urrutia
+    ⛓️Linkedin: https://www.linkedin.com/in/nicolas-urrutia-lerena-833465383
 
 Features
     -Calculate the determinant of any square matrix
@@ -42,5 +44,3 @@ Known Limitations
 
 Future Improvements
     Code a funcition to solve systems using Gauss-Jordan elimination.
-    Code a function to give the inverse using Gauss-Jordan elimination.
-    Introduce an information, contact or "About me" button in the GUI.

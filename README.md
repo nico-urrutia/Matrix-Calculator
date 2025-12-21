@@ -44,3 +44,4 @@ Known Limitations
 
 Future Improvements
     Code a funcition to solve systems using Gauss-Jordan elimination.
+    Recursive determinant calculation seems to have some probelms when calculating the determinant of matries containing fractions

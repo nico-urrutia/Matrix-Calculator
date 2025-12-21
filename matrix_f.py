@@ -161,8 +161,7 @@ class Matrix:
         return gauss_mat_range(self.data)
     
     def inverse_gauss_jordan(self):
-        inv = inverse_gauss_jordan(self.data)
-        return Matrix(clean_matrix(inv))
+        return inverse_gauss_jordan(self.data)
 
 C2 = [
     [3, 2, 8, 4],

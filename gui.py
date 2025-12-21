@@ -12,6 +12,12 @@ def parse_matrix(text):
         return None
 
 def start_app():
+    def open_link(url):
+        webbrowser.open(url)
+
+    def open_email(email):
+        webbrowser.open(f"mailto:{email}")
+        
     def perform_operation(op):
         text = input_box.get("1.0", tk.END).strip()
         matrix = parse_matrix(text)
@@ -73,12 +79,20 @@ def start_app():
                 "I have been coding since I was 13 years old and I love creating useful applications that solve real-world problems.\n"
                 " \n"
                 "CONTACT:\n"
-                "📩Email: nicolas.urrutia@opendeusto.es , nicourru@icloud.com\n"
+
+            ),
+            justify=tk.LEFT,)
+        developer_label.pack(pady=10)
+
+        contact_label = tk.Label(#Introduce clickable links later
+            info_window,
+            text=(
+                "📩Email: nicolas.urrutia@opendeusto.es , nicourru@icloud.com\n"#Use mailto:nicolas.urrutia@opendeusto.es
                 "🌐GitHub: https://github.com/nico-urrutia\n"
                 "⛓️Linkedin: https://www.linkedin.com/in/nicolas-urrutia-lerena-833465383/\n"
             ),
             justify=tk.LEFT,)
-        developer_label.pack(pady=10)
+        contact_label.pack(pady=10)
 
         close_button = tk.Button(
             info_window,

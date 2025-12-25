@@ -59,7 +59,7 @@ def get_minor(matrix, col, row):
     return transpose_m(trasp_minor)
 
 def determinante_matrix(matrix: list[list])->int:
-    determinante: int = 0
+    determinante = 0
     if len(matrix) == 1:
         return matrix[0][0]
     else:
@@ -176,5 +176,11 @@ class Matrix:
         return inverse_gauss_jordan(self.data)
 
 
-for fila in system_gauss_jordan(matrix, results):
-    print(fila)
+F = [
+    [-1, 2, 0, 5, -3],
+    [4, -2, 1, 0, 2],
+    [0, 1, -1, 3, 1],
+    [2, 0, 4, -1, 0],
+    [1, 1, 1, 1, 1]
+]
+print(determinante_matrix(F))

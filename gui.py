@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from fractions import Fraction
 from matrix_f import Matrix
-
+import webbrowser
 def parse_matrix(text):
     try:
         rows = text.strip().split("\n")
@@ -14,9 +14,6 @@ def parse_matrix(text):
 def start_app():
     def open_link(url):
         webbrowser.open(url)
-
-    def open_email(email):
-        webbrowser.open(f"mailto:{email}")
         
     def perform_operation(op):
         text = input_box.get("1.0", tk.END).strip()
@@ -59,7 +56,7 @@ def start_app():
     def show_developer_info():
         info_window = tk.Toplevel(window)
         info_window.title("About the Developer")
-        info_window.geometry("950x220")
+        info_window.geometry("950x350")
         info_window.iconbitmap("matrix_icon_215545.ico") 
         info_window.transient(window)
         info_window.grab_set()
@@ -78,21 +75,43 @@ def start_app():
                 "💻I'm a computer science, data science and AI student at the University of Deusto. I'm passionate about mathematics and programming.\n This project is part of my exploration into linear algebra and algorithm implementation.\n"
                 "I have been coding since I was 13 years old and I love creating useful applications that solve real-world problems.\n"
                 " \n"
-                "CONTACT:\n"
-
+                "CONTACT:"
             ),
             justify=tk.LEFT,)
         developer_label.pack(pady=10)
-
-        contact_label = tk.Label(#Introduce clickable links later
+        contact_text = tk.Text(
             info_window,
-            text=(
-                "📩Email: nicolas.urrutia@opendeusto.es , nicourru@icloud.com\n"#Use mailto:nicolas.urrutia@opendeusto.es
-                "🌐GitHub: https://github.com/nico-urrutia\n"
-                "⛓️Linkedin: https://www.linkedin.com/in/nicolas-urrutia-lerena-833465383/\n"
-            ),
-            justify=tk.LEFT,)
-        contact_label.pack(pady=10)
+            width=80,
+            height=5,
+            borderwidth=0,
+            highlightthickness=0,
+            font=("TkDefaultFont", 10),
+            bg=info_window.cget("bg"),  # same background as window
+        )
+        contact_text.pack(pady=10, padx=10)
+
+        # Insert the text
+        contact_text.insert(tk.END,
+            "📩 Email: nicolas.urrutia@opendeusto.es , nicourru@icloud.com\n"
+            "🌐 GitHub: https://github.com/nico-urrutia\n"
+            "⛓️ LinkedIn: https://www.linkedin.com/in/nicolas-urrutia-lerena-833465383/\n"
+        )
+
+        # Disable editing
+        contact_text.config(state=tk.DISABLED)
+
+        # Function to add clickable link
+        def add_link(tag_name, start, end, url):
+            contact_text.tag_add(tag_name, start, end)
+            contact_text.tag_config(tag_name, foreground="blue", underline=True)
+            contact_text.tag_bind(tag_name, "<Button-1>", lambda e: webbrowser.open(url))
+
+        # Add tags for each clickable part
+        # Adjust indices to match the positions in the text
+        add_link("email1", "1.10", "1.39", "mailto:nicolas.urrutia@opendeusto.es")
+        add_link("email2", "1.42", "1.61", "mailto:nicourru@icloud.com")
+        add_link("github", "2.11", "2.end", "https://github.com/nico-urrutia")
+        add_link("linkedin", "3.13", "3.end", "https://www.linkedin.com/in/nicolas-urrutia-lerena-833465383/")
 
         close_button = tk.Button(
             info_window,

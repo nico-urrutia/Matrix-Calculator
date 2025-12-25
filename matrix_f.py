@@ -100,14 +100,13 @@ def identity_matrix(matrix):
         identity[k][k]+=1
     return identity
 
-def augment_matrix(matrix):
-    identity = identity_matrix(matrix)
+def augment_matrix(matrix, add):
     augmented = []
     for i in range(len(matrix)):
         row = []
         for number in matrix[i]:
             row.append(number)
-        for number in identity[i]:
+        for number in add[i]:
             row.append(number)
         augmented.append(row)
     return augmented
@@ -126,7 +125,7 @@ def inverse_gauss_jordan(matrix):
         raise ValueError("The matrix is not invertible (determinant = 0).")
     if len(matrix)!=len(matrix[0]):
         raise ValueError("The matrix is not invertible (not square).")
-    augmented_matrix = augment_matrix(matrix)
+    augmented_matrix = augment_matrix(matrix, identity_matrix(matrix))
     for i in range(len(matrix)):
         pivot = augmented_matrix[i][i]
         if pivot == 0:
@@ -140,8 +139,21 @@ def inverse_gauss_jordan(matrix):
     inverse = get_inverse_from_aug(augmented_matrix)
     return clean_matrix(inverse)
 
-def system_gauss_jordan(matrix, results):#Note that it takes TWO arguments: the matrix and the results vector. This might cause problems with user input and parsing(have to fix that later).
-    pass  # Placeholder for future implementation
+def system_gauss_jordan(matrix, results):#Note that it takes TWO arguments: the matrix and the results vector. This might cause problems with user input and parsing.
+    augmented_matrix = augment_matrix(matrix, results)
+    for i in range(len(matrix)):
+        if augmented_matrix[i][i] == 0:
+            partial_pivot(augmented_matrix, i)
+        pivot = augmented_matrix[i][i]
+        if pivot == 0:
+            raise ValueError("No unique solution")
+        for j in range(i, len(augmented_matrix[i])):
+            augmented_matrix[i][j] = Fraction(augmented_matrix[i][j],pivot)
+        for k in range(len(augmented_matrix)):
+            if k == i:
+                continue
+            substract_rows(augmented_matrix[k], augmented_matrix[i], augmented_matrix[k][i])
+    return clean_matrix(augmented_matrix)
 
 class Matrix:
     def __init__(self, data: list[list]):
@@ -163,9 +175,6 @@ class Matrix:
     def inverse_gauss_jordan(self):
         return inverse_gauss_jordan(self.data)
 
-C2 = [
-    [3, 2, 8, 4],
-    [5, 6, 5, 8],
-    [9, 10, 1, 2],
-    [1, 4, 3, 6]
-    ]
+
+for fila in system_gauss_jordan(matrix, results):
+    print(fila)

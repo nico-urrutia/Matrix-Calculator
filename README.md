@@ -31,31 +31,34 @@ Matrix Calculator is a Python program that performs various operations on matric
 ```bash
 git clone https://github.com/nico-urrutia/matrix-calculator.git
 cd matrix-calculator
+```
 
-
-How to Run
+## How to Run
 From the terminal or command prompt:
+```bash
 python main.py #This launches the GUI.
-
+```
 Example Input
 1 2 3
 4 5 6
 7 8 9
 Click the buttons to calculate Determinant, Rank, or Inverse.
 
+```bash
 Project Structure
 matrix_calculator/
 │
 ├── main.py         # Launches the GUI
 ├── gui.py          # Tkinter interface for user input and output
 └── matrix_f.py     # All matrix operations (determinant, inverse, rank, transpose, etc.)
+```
 
-Known Limitations:
-    MAIN PROBLEM: The recursive determinant calculation fails strangely in specific circumstances.
-    Determinant calculation using recursion, can be slow for large matrices (n > 8).
-    GUI input is limited to rectangular numeric matrices; invalid inputs may cause errors.
+## Known Limitations
+- **Main problem:** The recursive determinant calculation fails strangely in specific circumstances.  
+- Determinant calculation using recursion can be slow for large matrices (n > 8).  
+- GUI input is limited to rectangular numeric matrices; invalid inputs may cause errors.  
 
-Future Improvements:
-    Code a funcition to solve systems using Gauss-Jordan elimination.
-    Recursive determinant calculation seems to have some probelms when calculating the determinant of matrixes containing fractions
-    Introduce links in the About me button.
+## Future Improvements
+- Add a function to solve systems using Gauss-Jordan elimination.  
+- Fix recursive determinant calculation for matrices containing fractions.  
+- Introduce links in the "About Me" button.

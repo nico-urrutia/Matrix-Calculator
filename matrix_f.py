@@ -139,6 +139,13 @@ def inverse_gauss_jordan(matrix):
     inverse = get_inverse_from_aug(augmented_matrix)
     return clean_matrix(inverse)
 
+def get_results(solved_gauss_jordan):
+    letters = ["x", "y", "z", "w", "v", "u", "t", "s", "r", "q", "p", "o", "n", "m", "l", "k", "j", "i", "h", "g", "f", "e", "d", "c", "b", "a"]
+    result_string = ""
+    for row, letter in zip(solved_gauss_jordan, letters):
+        result_string+=f"{letter} = {row[-1]}\n"
+    return result_string
+
 def system_gauss_jordan(matrix, results):#Note that it takes TWO arguments: the matrix and the results vector. This might cause problems with user input and parsing.
     augmented_matrix = augment_matrix(matrix, results)
     for i in range(len(matrix)):
@@ -153,7 +160,7 @@ def system_gauss_jordan(matrix, results):#Note that it takes TWO arguments: the 
             if k == i:
                 continue
             substract_rows(augmented_matrix[k], augmented_matrix[i], augmented_matrix[k][i])
-    return clean_matrix(augmented_matrix)
+    return get_results(augmented_matrix)
 
 class Matrix:
     def __init__(self, data: list[list]):
@@ -176,11 +183,14 @@ class Matrix:
         return inverse_gauss_jordan(self.data)
 
 
-F = [
-    [-1, 2, 0, 5, -3],
-    [4, -2, 1, 0, 2],
-    [0, 1, -1, 3, 1],
-    [2, 0, 4, -1, 0],
-    [1, 1, 1, 1, 1]
+matrix = [
+    [1, 1],
+    [2, 3]
 ]
-print(determinante_matrix(F))
+
+results = [
+    [2],
+    [4]
+]
+
+print(system_gauss_jordan(matrix, results))

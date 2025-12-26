@@ -54,11 +54,10 @@ matrix_calculator/
 ```
 
 ## Known Limitations
-- **Main problem:** The recursive determinant calculation fails strangely in specific circumstances.  
+- **Main problem:** The recursive determinant calculation fails strangely in specific circumstances.  (For example with fractions)
 - Determinant calculation using recursion can be slow for large matrices (n > 8).  
 - GUI input is limited to rectangular numeric matrices; invalid inputs may cause errors.  
 
 ## Future Improvements
 - Add a function to solve systems using Gauss-Jordan elimination.  
 - Fix recursive determinant calculation for matrices containing fractions.  
-- Introduce links in the "About Me" button.

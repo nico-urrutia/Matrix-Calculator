@@ -39,9 +39,11 @@ From the terminal or command prompt:
 python main.py #This launches the GUI.
 ```
 Example Input
+```
 1 2 3
 4 5 6
 7 8 9
+```
 Click the buttons to calculate Determinant, Rank, or Inverse.
 
 ```bash

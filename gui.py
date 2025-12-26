@@ -22,6 +22,7 @@ def start_app():
             messagebox.showerror("Error", "Invalid matrix format.")
             return
         M = Matrix(matrix)
+        system = False
         try:
             if op == "transpose":
                 result = M.transpose_m().data
@@ -31,20 +32,30 @@ def start_app():
                 result = M.determinante_tri()
             elif op == "rank":
                 result = M.rank_gauss()
+            elif op == "system_gauss_jordan":
+                system = True
+                result = M.system_gauss_jordan()
             elif op == "inverse_gauss_jordan":
                 result = M.inverse_gauss_jordan()
             else:
                 result = ""
             output_box.config(state="normal")
             output_box.delete("1.0", tk.END)
-            try:
-                for line in result:
-                    for elem in line:
-                        output_box.insert(tk.END, f"{elem} ")
-                    output_box.insert(tk.END, "\n")
-            except TypeError:
-                output_box.insert(tk.END, str(result))
-            output_box.config(state="disabled")
+            if not system:
+                try:
+                    for line in result:
+                        for elem in line:
+                            output_box.insert(tk.END, f"{elem} ")
+                        output_box.insert(tk.END, "\n")
+                except TypeError:
+                    output_box.insert(tk.END, str(result))
+                output_box.config(state="disabled")
+            else:
+                try:
+                    output_box.insert(tk.END, result)
+                except TypeError:
+                    output_box.insert(tk.END, str(result))
+                output_box.config(state="disabled")
         except Exception as e:
             messagebox.showerror("Error", str(e))
 
@@ -84,20 +95,17 @@ def start_app():
             width=80,
             height=5,
             borderwidth=0,
-            highlightthickness=0,
             font=("TkDefaultFont", 10),
-            bg=info_window.cget("bg"),  # same background as window
+            bg=info_window.cget("bg"),
         )
         contact_text.pack(pady=10, padx=10)
 
-        # Insert the text
         contact_text.insert(tk.END,
             "📩 Email: nicolas.urrutia@opendeusto.es , nicourru@icloud.com\n"
             "🌐 GitHub: https://github.com/nico-urrutia\n"
             "⛓️ LinkedIn: https://www.linkedin.com/in/nicolas-urrutia-lerena-833465383/\n"
         )
 
-        # Disable editing
         contact_text.config(state=tk.DISABLED)
 
         # Function to add clickable link
@@ -107,7 +115,7 @@ def start_app():
             contact_text.tag_bind(tag_name, "<Button-1>", lambda e: webbrowser.open(url))
 
         # Add tags for each clickable part
-        # Adjust indices to match the positions in the text
+        # Adjust indexes to match the positions in the text
         add_link("email1", "1.10", "1.39", "mailto:nicolas.urrutia@opendeusto.es")
         add_link("email2", "1.42", "1.61", "mailto:nicourru@icloud.com")
         add_link("github", "2.11", "2.end", "https://github.com/nico-urrutia")
@@ -138,6 +146,7 @@ def start_app():
     tk.Button(buttons_frame, width=button_width, height=button_height, text="Determinant (recursive)", command=lambda: perform_operation("det_rec")).grid(row=0, column=1, padx=5, pady=2)
     tk.Button(buttons_frame, width=button_width, height=button_height, text="Determinant (triangular)", command=lambda: perform_operation("det_tri")).grid(row=1, column=0, padx=5, pady=2)
     tk.Button(buttons_frame, width=button_width, height=button_height, text="Rank", command=lambda: perform_operation("rank")).grid(row=2, column=0, padx=5, pady=2)
+    tk.Button(buttons_frame, width=button_width, height=button_height, text="System solving(Gauss-Jordan)", command=lambda: perform_operation("system_gauss_jordan")).grid(row=1, column=1, padx=5, pady=2)
     tk.Button(buttons_frame, width=button_width, height=button_height, text="Inverse (By Gauss-Jordan)", command=lambda: perform_operation("inverse_gauss_jordan")).grid(row=2, column=1, padx=5, pady=2)
 
 

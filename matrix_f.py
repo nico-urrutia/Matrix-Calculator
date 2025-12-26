@@ -146,9 +146,8 @@ def get_results(solved_gauss_jordan):
         result_string+=f"{letter} = {row[-1]}\n"
     return result_string
 
-def system_gauss_jordan(matrix, results):#Note that it takes TWO arguments: the matrix and the results vector. This might cause problems with user input and parsing.
-    augmented_matrix = augment_matrix(matrix, results)
-    for i in range(len(matrix)):
+def system_gauss_jordan(augmented_matrix):
+    for i in range(len(augmented_matrix)):
         if augmented_matrix[i][i] == 0:
             partial_pivot(augmented_matrix, i)
         pivot = augmented_matrix[i][i]
@@ -181,16 +180,6 @@ class Matrix:
     
     def inverse_gauss_jordan(self):
         return inverse_gauss_jordan(self.data)
-
-
-matrix = [
-    [1, 1],
-    [2, 3]
-]
-
-results = [
-    [2],
-    [4]
-]
-
-print(system_gauss_jordan(matrix, results))
+    
+    def system_gauss_jordan(self):
+        return system_gauss_jordan(self.data)

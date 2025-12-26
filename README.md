@@ -61,5 +61,4 @@ matrix_calculator/
 - GUI input is limited to rectangular numeric matrices; invalid inputs may cause errors.  
 
 ## Future Improvements
-- Add a function to solve systems using Gauss-Jordan elimination.  
 - Fix recursive determinant calculation for matrices containing fractions.  

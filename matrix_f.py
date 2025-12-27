@@ -53,9 +53,9 @@ def get_minor(matrix, col, row):
     minor1 = []
     for i in range(0, len(matrix)):
         if i != row:
-            minor1.append(matrix[i])
+            minor1.append(matrix[i][:])
     trasp_minor = transpose_m(minor1)
-    trasp_minor.remove(trasp_minor[col])
+    del trasp_minor[col] 
     return transpose_m(trasp_minor)
 
 def determinante_matrix(matrix: list[list])->int:
@@ -183,3 +183,4 @@ class Matrix:
     
     def system_gauss_jordan(self):
         return system_gauss_jordan(self.data)
+        
